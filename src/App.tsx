@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import ThemeButton from "./components/themeButton";
+import HandlerContent from "./components/HandlerContent";
 
 interface contraseña {
   contraseña: string;
@@ -12,6 +14,8 @@ export default function App() {
     length: 10,
     contiene: [],
   });
+
+  const [theme, setTheme] = useState("");
 
   const contiene = (
     contenido: "minuscula" | "mayuscula" | "numero" | "simbolo"
@@ -70,10 +74,13 @@ export default function App() {
   };
 
   return (
-    <>
-      <div className="w-screen h-screen bg-zinc-200 flex flex-col justify-center items-center text-zinc-100 relative">
-        <div className="w-72 bg-neutral-800 rounded-xl overflow-hidden flex flex-col shadow-2xl">
-          <div className="py-2 px-4 bg-zinc-300 text-xl font-semibold text-black flex justify-between">
+    <div className={`${theme} h-screen`}>
+      <div className="h-full relative bg-zinc-200 dark:bg-slate-800 dark:text-black flex flex-col justify-center items-center text-zinc-100 relative">
+        <ThemeButton
+          setTheme={() => (theme === "" ? setTheme("dark") : setTheme(""))}
+        />
+        <div className="w-72 dark:text-neutral-700 rounded-xl overflow-hidden flex flex-col shadow-2xl dark:shadow-zinc-500/50">
+          <div className="w-full h-full py-2 px-4 bg-zinc-300 dark:bg-neutral-800 dark:text-neutral-200 text-xl font-semibold text-black flex justify-between">
             <p>{contraseña.contraseña}</p>
             <button
               onClick={(e) =>
@@ -83,55 +90,23 @@ export default function App() {
               Copy
             </button>
           </div>
-          <div className="p-4 flex flex-col gap-4">
-            <div className="flex justify-between text-lg font-semibold">
-              <p>Mayusculas</p>
-              <button
-                className="text-2xl"
-                onClick={(e) => {
-                  contiene("mayuscula");
-                  e.currentTarget.classList.toggle("text-yellow-500");
-                }}
-              >
-                +
-              </button>
-            </div>
-            <div className="flex justify-between text-lg font-semibold">
-              <p>Minusculas</p>
-              <button
-                className="text-2xl"
-                onClick={(e) => {
-                  contiene("minuscula");
-                  e.currentTarget.classList.toggle("text-yellow-500");
-                }}
-              >
-                +
-              </button>
-            </div>
-            <div className="flex justify-between text-lg font-semibold">
-              <p>Numeros</p>
-              <button
-                className="text-2xl"
-                onClick={(e) => {
-                  contiene("numero");
-                  e.currentTarget.classList.toggle("text-yellow-500");
-                }}
-              >
-                +
-              </button>
-            </div>
-            <div className="flex justify-between text-lg font-semibold">
-              <p>Simbolos</p>
-              <button
-                className="text-2xl"
-                onClick={(e) => {
-                  contiene("simbolo");
-                  e.currentTarget.classList.toggle("text-yellow-500");
-                }}
-              >
-                +
-              </button>
-            </div>
+          <div className="bg-neutral-800 dark:bg-neutral-300 p-4 flex flex-col gap-4">
+            <HandlerContent
+              title={"Mayusculas"}
+              onClick={() => contiene("mayuscula")}
+            />
+            <HandlerContent
+              title={"Minusculas"}
+              onClick={() => contiene("minuscula")}
+            />
+            <HandlerContent
+              title={"Numeros"}
+              onClick={() => contiene("numero")}
+            />
+            <HandlerContent
+              title={"Simbolos"}
+              onClick={() => contiene("simbolo")}
+            />
             <input
               min="1"
               max="14"
@@ -145,10 +120,8 @@ export default function App() {
                 })
               }
             ></input>
-          </div>
-          <div className="p-2 text-xl font-semibold">
             <button
-              className="w-full p-2 text-center bg-yellow-500 rounded-xl hover:bg-yellow-400"
+              className="w-full text-xl dark:text-white font-semibold p-2 text-center bg-yellow-500 rounded-xl hover:bg-yellow-400"
               onClick={(e) => {
                 console.log("Generando contraseña");
                 generarContraseña();
@@ -159,6 +132,6 @@ export default function App() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
