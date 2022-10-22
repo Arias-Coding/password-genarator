@@ -75,7 +75,7 @@ export default function App() {
 
   return (
     <div className={`${theme} h-screen`}>
-      <div className="h-full relative bg-zinc-200 dark:bg-slate-800 dark:text-black flex flex-col justify-center items-center text-zinc-100 relative">
+      <div className="h-full relative bg-zinc-200 dark:bg-slate-900 dark:text-black flex flex-col justify-center items-center text-zinc-100 relative">
         <ThemeButton
           setTheme={() => (theme === "" ? setTheme("dark") : setTheme(""))}
         />
@@ -90,7 +90,7 @@ export default function App() {
               Copy
             </button>
           </div>
-          <div className="bg-neutral-800 dark:bg-neutral-300 p-4 flex flex-col gap-4">
+          <div className="bg-neutral-800 dark:bg-zinc-500 text-white p-4 flex flex-col gap-4">
             <HandlerContent
               title={"Mayusculas"}
               onClick={() => contiene("mayuscula")}
